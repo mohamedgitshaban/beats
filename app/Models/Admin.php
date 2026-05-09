@@ -18,19 +18,11 @@ class Admin extends User
         'status',
     ];
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
         static::creating(function ($model) {
             $model->role = self::ROLE_ADMIN;
         });
-    }
-
-    public static function create(array $attributes = [])
-    {
-        $attributes['role'] = self::ROLE_ADMIN;
-        return parent::create($attributes);
     }
 
     public function otp()
