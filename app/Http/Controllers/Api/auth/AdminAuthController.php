@@ -22,9 +22,9 @@ class AdminAuthController extends Controller
             'name' => $validatedData['name'],
             'phone' => $validatedData['phone'],
         ]);
-        Otp::createOrUpdate(
+        Otp::updateOrCreate(
             ['user_id' => $admin->id],[
-            'otp' => '12345',
+            'otp_code' => '12345',
             'expires_at' => now()->addMinutes(10),
         ]);
         // Return a success response
@@ -88,9 +88,9 @@ class AdminAuthController extends Controller
         }
 
         // Generate and save a new OTP
-        Otp::createOrUpdate(
+        Otp::updateOrCreate(
             ['user_id' => $admin->id],[
-            'otp' => '12345',
+            'otp_code' => '12345',
             'expires_at' => now()->addMinutes(10),
         ]);
 

@@ -32,4 +32,9 @@ class Admin extends User
         $attributes['role'] = self::ROLE_ADMIN;
         return parent::create($attributes);
     }
+
+    public function otp()
+    {
+        return $this->hasOne(Otp::class, 'user_id');
+    }
 }

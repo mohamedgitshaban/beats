@@ -11,20 +11,20 @@ class ClientAuthController extends Controller
 {
     public function signup(Request $request)
     {
+       
         // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20|unique:users,phone',
         ]);
-
         // Create a new client user
         $client = Client::create([
             'name' => $validatedData['name'],
             'phone' => $validatedData['phone'],
         ]);
-        Otp::createOrUpdate(
+        Otp::updateOrCreate(
             ['user_id' => $client->id],[
-            'otp' => '12345',
+            'otp_code' => '12345',
             'expires_at' => now()->addMinutes(10),
         ]);
         // Return a success response
@@ -67,8 +67,8 @@ class ClientAuthController extends Controller
         // Return a success response
         return response()->json([
             'message' => 'OTP verified successfully. Client is now verified.',
-            'client' => $client,
             'token' => $token,
+            'client' => $client,
         ]);
     }
     public function sendOtp(Request $request)
@@ -88,9 +88,9 @@ class ClientAuthController extends Controller
         }
 
         // Generate and save a new OTP
-        Otp::createOrUpdate(
+        Otp::updateOrCreate(
             ['user_id' => $client->id],[
-            'otp' => '12345',
+            'otp_code' => '12345',
             'expires_at' => now()->addMinutes(10),
         ]);
 

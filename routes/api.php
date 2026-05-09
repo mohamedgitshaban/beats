@@ -17,19 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::prefix('admin')->group(function () {
+    Route::prefix('auth')->group(function () {
         Route::post('/signup', [AdminAuthController::class, 'signup']);
         Route::post('/verify-otp', [AdminAuthController::class, 'verifyOtp']);
         Route::post('/send_otp', [AdminAuthController::class, 'sendOtp']);
         Route::post('/login', [AdminAuthController::class, 'login']);
-        Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-            Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
-            Route::post('/logout', [AdminAuthController::class, 'logout']);
-        });
+    });
+    Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+        Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
+        Route::post('/logout', [AdminAuthController::class, 'logout']);
+    });
 });
 Route::prefix('client')->group(function () {
     Route::prefix('auth')->group(function () {
@@ -41,6 +39,5 @@ Route::prefix('client')->group(function () {
     Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
         Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
         Route::post('/logout', [ClientAuthController::class, 'logout']);
-       });
-    
+    });
 });

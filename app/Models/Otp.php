@@ -13,4 +13,11 @@ class Otp extends Model
         'otp_code',
         'expires_at',
     ];
+    /**
+     * Relationship to User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

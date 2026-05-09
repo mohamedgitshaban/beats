@@ -7,29 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends User
 {
-    use HasFactory , SoftDeletes;
+    use SoftDeletes;
+    protected $table = 'users';
 
-    protected $fillable = [
-        'name',
-        'phone',
-        'email',
-        'password',
-        'status',
-    ];
-
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
         static::creating(function ($model) {
             $model->role = self::ROLE_CLIENT;
         });
-    }
-
-    public static function create(array $attributes = [])
-    {
-        $attributes['role'] = self::ROLE_CLIENT;
-        return parent::create($attributes);
     }
     public function otp()
     {

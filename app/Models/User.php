@@ -59,4 +59,12 @@ class User extends Authenticatable
     {
         return $query->where('role', self::ROLE_CLIENT);
     }
+
+    /**
+     * Relationship to OTP
+     */
+    public function otp()
+    {
+        return $this->hasOne(Otp::class, 'user_id');
+    }
 }
