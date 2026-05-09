@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\Api\AuthOtpController;
-use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\auth\AdminAuthController;
+use App\Http\Controllers\Api\auth\ClientAuthController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,16 +21,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('auth')->group(function () {
-    Route::post('/client/register', [AuthOtpController::class, 'registerClient']);
-    Route::post('/otp/request', [AuthOtpController::class, 'requestOtp']);
-    Route::post('/otp/verify', [AuthOtpController::class, 'verifyOtp']);
-
-    Route::middleware('auth:sanctum')->post('/logout', [AuthOtpController::class, 'logout']);
+Route::prefix('admin')->group(function () {
+        Route::post('/signup', [AdminAuthController::class, 'signup']);
+        Route::post('/verify-otp', [AdminAuthController::class, 'verifyOtp']);
+        Route::post('/send_otp', [AdminAuthController::class, 'sendOtp']);
+        Route::post('/login', [AdminAuthController::class, 'login']);
+        Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+            Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
+            Route::post('/logout', [AdminAuthController::class, 'logout']);
+        });
 });
-
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    Route::apiResource('admins', AdminController::class);
-    Route::get('/clients', [ClientController::class, 'index']);
-    Route::get('/clients/{id}', [ClientController::class, 'show']);
+Route::prefix('client')->group(function () {
+    Route::prefix('auth')->group(function () {
+        Route::post('/signup', [ClientAuthController::class, 'signup']);
+        Route::post('/verify-otp', [ClientAuthController::class, 'verifyOtp']);
+        Route::post('/send_otp', [ClientAuthController::class, 'sendOtp']);
+        Route::post('/login', [ClientAuthController::class, 'login']);
+    });
+    Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
+        Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
+        Route::post('/logout', [ClientAuthController::class, 'logout']);
+       });
+    
 });
