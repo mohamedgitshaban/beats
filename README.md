@@ -128,3 +128,52 @@ GET /api/clients?q=201&created_from=2026-01-01&created_to=2026-12-31&sort_by=cre
 ```
 
 - `GET /api/clients/{id}` : get one client
+
+## API: Football Proxy (AllSportsAPI V2)
+
+This project now exposes a public football proxy API that mirrors AllSportsAPI methods.
+
+Behavior:
+
+- Cache is based on query parameters only (not user/auth).
+- If fresh cached data exists, API returns cached payload.
+- If cache is missing or expired, API calls AllSportsAPI, stores the result, then returns it.
+
+### Base endpoint (same style as provider doc)
+
+- `GET|POST /api/football?met=Countries`
+- `GET|POST /api/football?met=Leagues&countryId=5`
+- `GET|POST /api/football?met=Fixtures&from=2021-05-18&to=2021-05-18`
+
+### Friendly endpoints (optional)
+
+- `GET|POST /api/football/countries`
+- `GET|POST /api/football/leagues?countryId=5`
+- `GET|POST /api/football/fixtures?from=2021-05-18&to=2021-05-18`
+- `GET|POST /api/football/h2h?firstTeamId=93&secondTeamId=4973`
+- `GET|POST /api/football/livescore`
+- `GET|POST /api/football/standings?leagueId=207`
+- `GET|POST /api/football/topscorers?leagueId=207`
+- `GET|POST /api/football/teams?teamId=96`
+- `GET|POST /api/football/players?playerId=103051168`
+- `GET|POST /api/football/videos?eventId=86392`
+- `GET|POST /api/football/odds?matchId=86392`
+- `GET|POST /api/football/probabilities?matchId=86392`
+- `GET|POST /api/football/live-odds`
+- `GET|POST /api/football/live-comments?matchId=902316`
+- `GET|POST /api/football/full-odds?matchId=1486610`
+
+### Configuration
+
+Set these environment variables:
+
+- `ALL_SPORTS_API_KEY=your_key`
+- `ALL_SPORTS_API_BASE_URL=https://apiv2.allsportsapi.com/football/`
+- `ALL_SPORTS_API_TIMEOUT=30`
+- `ALL_SPORTS_API_CONNECT_TIMEOUT=5`
+- `ALL_SPORTS_API_RETRIES=1`
+
+The response includes headers:
+
+- `X-Data-Source: cache|provider`
+- `X-Cached-At: <timestamp>` when served from cache
