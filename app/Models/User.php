@@ -3,13 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -24,10 +26,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'phone',
+        'password',
         'status',
         'country_id',
         'match_range',
         'role',
+        'phone_verified_at',
     ];
 
     /**
@@ -36,6 +40,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'password',
         'remember_token',
         'phone_verified_at',
     ];
@@ -60,6 +65,13 @@ class User extends Authenticatable
     public function scopeClients($query)
     {
         return $query->where('role', self::ROLE_CLIENT);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $panel->getId() === 'admin'
+            && $this->role === self::ROLE_ADMIN
+            && $this->status === 'active';
     }
 
     /**

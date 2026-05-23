@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/locale/{locale}', function (Request $request, string $locale) {
+    $supportedLocales = ['en', 'ar'];
+
+    if (! in_array($locale, $supportedLocales, true)) {
+        $locale = config('app.fallback_locale');
+    }
+
+    $request->session()->put('locale', $locale);
+
+    return redirect()->back();
+})->name('locale.switch');

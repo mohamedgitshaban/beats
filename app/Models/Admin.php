@@ -8,16 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Admin extends User
 {
     use HasFactory, SoftDeletes;
-    
-
-    protected $fillable = [
-        'name',
-        'phone',
-        'email',
-        'password',
-        'status',
-    ];
-
+    protected $table = 'users';
     protected static function booted()
     {
         static::creating(function ($model) {
