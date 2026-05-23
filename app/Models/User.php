@@ -25,6 +25,8 @@ class User extends Authenticatable
         'name',
         'phone',
         'status',
+        'country_id',
+        'match_range',
         'role',
     ];
 

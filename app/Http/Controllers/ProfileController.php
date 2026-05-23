@@ -18,6 +18,8 @@ class ProfileController extends Controller
         $data=Validator::make($request->all(), [
             'name' => 'sometimes|string|max:255',
             'phone' => 'sometimes|string|max:255|unique:users,phone,' . $request->user()->id,
+            'country_id' => 'sometimes|string|max:255',
+            'match_range' => 'sometimes|string|max:255'
         ]);
         if ($data->fails()) {
             return response()->json([
@@ -26,7 +28,7 @@ class ProfileController extends Controller
             ], 422);
         }
         $user = $request->user();
-        $user->update($request->only('name', 'phone'));
+        $user->update($request->only('name', 'phone', 'country_id', 'match_range'));
         return response()->json([
             'message' => 'Profile updated successfully.',
             'user' => $user,

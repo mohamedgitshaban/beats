@@ -15,12 +15,16 @@ class AdminAuthController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20|unique:users,phone',
+            'country_id' => 'sometimes|string|max:255',
+            'match_range' => 'sometimes|string|max:255'
         ]);
 
         // Create a new admin user
         $admin = Admin::create([
             'name' => $validatedData['name'],
             'phone' => $validatedData['phone'],
+            'country_id' => $validatedData['country_id'] ?? null,
+            'match_range' => $validatedData['match_range'] ?? null,
         ]);
         Otp::updateOrCreate(
             ['user_id' => $admin->id],[
