@@ -43,5 +43,6 @@ Route::prefix('client')->group(function () {
     });
 });
 
+
 Route::match(['get', 'post'], '/football', [FootballApiController::class, 'index']);
 Route::match(['get', 'post'], '/football/{method}', [FootballApiController::class, 'byMethod']);
