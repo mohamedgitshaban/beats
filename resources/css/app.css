@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffffff;
+}
 
 .navbar {
     background-color: #fefefe10;
@@ -9,7 +21,7 @@
     left: 5%;
     top: 20px;
     border-radius: 50px;
-    position: fixed;
+    position: absolute;
 
 }
 
@@ -51,27 +63,532 @@
     height: 70%;
 }
 
+.user-count {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-count .icon img {
+    width: 60px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.user-count .count {
+    font-size: 14px;
+    color: white;
+    font-weight: 500;
+}
+
+.welcome-message {
+    max-width: 900px;
+    margin: 20px 0;
+}
+
+.app-screenshot {
+    margin-top: 20px;
+}
+
+.app-screenshot img {
+    max-width: 350px;
+    height: auto;
+}
+
+.legus {
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin: 0px auto 50px auto;
+}
 swiper-container {
     width: 80%;
-    margin: 50px auto;
-    height: 200px;
+    margin: 0 auto;
+    max-height: 200px;
 }
 
-/* swiper-slide {
-    text-align: center;
-    font-size: 18px;
+/* Countdown Section */
+.countdown-section {
+    background-color: #fafafa;
+}
+
+.countdown-title {
+    /* font-size: 30px; */
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+}
+
+.countdown-description {
+    /* font-size: 16px; */
+    color: #666;
+
+}
+
+.countdown-timer {
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-swiper-slide img {
-    object-fit: content;
-    height: 50%;
 }
 
-swiper-slide img {
-    display: block;
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    /* gap: 12px; */
+    /* padding: 20px 30px; */
+    border-radius: 12px;
+}
+
+.countdown-value {
+    /* font-size: 64px; */
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+        background-color: #53b848;
+    padding: 10px;
+    /* min-width: 100px; */
+    text-align: center;
+}
+
+.countdown-label {
+    /* font-size: 16px; */
+    color: #000000;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.countdown-separator {
+    /* font-size: 64px; */
+    font-weight: 700;
+    color: #1a1a1a;    
+    margin: 5px 5px;
+}
+
+/* Predictions Section */
+.predictions-section {
+    padding:15px;
+
+}
+
+.match-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.match-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    border-color: #53b84820;
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.match-league {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+}
+
+.match-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(83, 184, 72, 0.08);
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #53b848;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.live-text {
+    font-size: 12px;
+    color: #53b848;
+    font-weight: 600;
+}
+
+.match-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 120px;
+}
+
+.team-logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.team-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.match-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1.2;
+    padding: 0 20px;
+}
+
+.score {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: 3px;
+}
+
+.match-time {
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Features Section */
+.features-section {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-icon img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-} */
+    object-fit: contain;
+}
+
+.feature-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+}
+
+.feature-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Download Section */
+.download-section {
+    background-image: url('../../public/images/download-section.png');
+    color: white;
+}
+
+.download-btn {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: scale(1.05);
+}
+
+.download-btn img {
+    height: 50px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: #ffffff;
+    padding: 40px 0;
+}
+
+.testimonial-card {
+    background-image:url('../../public/images/testimonial-bg.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #1a1a1a;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+.badge{
+    background-color: #53b84815;
+    
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+.testimonial-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.stars {
+    color: #fbbf24;
+    font-size: 14px;
+}
+
+.testimonial-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+    background-color: #030D18;
+    color: white;
+    padding: 60px 0 30px;
+}
+
+.footer-content {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-logo {
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    width: 150px;
+    margin: 0 auto;
+}
+
+.footer-description {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.footer-download {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0;
+}
+
+.footer-download img {
+    height: 45px;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #53b848;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.footer-copyright {
+    font-size: 13px;
+    color: #999;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .predictions-section .flex,
+    .download-section .flex {
+        flex-direction: column;
+    }
+
+    .predictions-section .w-1\/2,
+    .download-section .w-1\/2 {
+        width: 100%;
+    }
+
+    .features-section .grid-cols-3,
+    .testimonials-section .grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .match-card {
+        padding: 20px;
+    }
+
+    .countdown-value {
+        font-size: 52px;
+        min-width: 80px;
+    }
+
+    .countdown-separator {
+        font-size: 52px;
+    }
+
+    .countdown-timer {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-message h1 {
+        font-size: 2rem;
+    }
+
+    .welcome-message p {
+        font-size: 1rem;
+    }
+
+    .navbar {
+        width: 95%;
+        left: 2.5%;
+    }
+
+    .match-card {
+        padding: 16px;
+    }
+
+    .team {
+        min-width: 90px;
+    }
+
+    .team-logo {
+        width: 44px;
+        height: 44px;
+    }
+
+    .team-name {
+        font-size: 13px;
+    }
+
+    .score {
+        font-size: 22px;
+        letter-spacing: 2px;
+    }
+
+    .match-time {
+        font-size: 11px;
+    }
+
+    .match-score {
+        padding: 0 10px;
+    }
+
+    .countdown-title {
+        font-size: 32px;
+    }
+
+    .countdown-description {
+        font-size: 14px;
+        margin-bottom: 32px;
+    }
+
+    .countdown-value {
+        font-size: 40px;
+        min-width: 60px;
+    }
+
+    .countdown-separator {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .countdown-label {
+        font-size: 13px;
+    }
+
+    .countdown-timer {
+        gap: 10px;
+    }
+}
+
