@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\FAQ;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,9 @@ class FAQController extends Controller
     public function index()
     {
         $faqs = FAQ::where('is_active', true)->latest()->get();
-        return response()->json($faqs);
+        return response()->json([
+            'data' => $faqs,
+        ]);
     }
 
     /**
@@ -43,7 +46,9 @@ class FAQController extends Controller
      */
     public function show(FAQ $fAQ)
     {
-        return response()->json($fAQ);
+        return response()->json([
+            'data' => $fAQ,
+        ]);
     }
 
     /**
@@ -65,7 +70,9 @@ class FAQController extends Controller
             'is_active' => 'boolean',
         ]);
         $fAQ->update($validatedData);
-        return response()->json($fAQ);
+        return response()->json([
+            'data' => $fAQ,
+        ]);
     }
 
     /**

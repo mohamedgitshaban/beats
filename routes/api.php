@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AdsController;
+use App\Http\Controllers\Api\AdsController;
 use App\Http\Controllers\Api\FootballApiController;
 use App\Http\Controllers\Api\auth\AdminAuthController;
 use App\Http\Controllers\Api\auth\ClientAuthController;
+use App\Http\Controllers\Api\FAQController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +28,8 @@ Route::prefix('admin')->group(function () {
     });
     Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
         Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
+        Route::apiResource('ads', AdsController::class);
+        Route::apiResource('faq', FAQController::class);
         Route::post('/logout', [AdminAuthController::class, 'logout']);
     });
 });
@@ -39,13 +41,12 @@ Route::prefix('client')->group(function () {
         Route::post('/login', [ClientAuthController::class, 'login']);
     });
     Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
-        Route::apiResource('ads', AdsController::class)->only(['index', 'show']);
-        Route::apiResource('faq', AdsController::class)->only(['index', 'show']);
         Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
         Route::post('/logout', [ClientAuthController::class, 'logout']);
     });
 });
 
-
+Route::apiResource('ads', AdsController::class)->only(['index', 'show']);
+Route::apiResource('faq', FAQController::class)->only(['index', 'show']);
 Route::match(['get', 'post'], '/football', [FootballApiController::class, 'index']);
 Route::match(['get', 'post'], '/football/{method}', [FootballApiController::class, 'byMethod']);
