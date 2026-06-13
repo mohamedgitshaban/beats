@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdsController;
 use App\Http\Controllers\Api\FootballApiController;
 use App\Http\Controllers\Api\auth\AdminAuthController;
 use App\Http\Controllers\Api\auth\ClientAuthController;
@@ -38,6 +39,8 @@ Route::prefix('client')->group(function () {
         Route::post('/login', [ClientAuthController::class, 'login']);
     });
     Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
+        Route::apiResource('ads', AdsController::class)->only(['index', 'show']);
+        Route::apiResource('faq', AdsController::class)->only(['index', 'show']);
         Route::apiResource('profile', ProfileController::class)->only(['show', 'update', 'destroy']);
         Route::post('/logout', [ClientAuthController::class, 'logout']);
     });

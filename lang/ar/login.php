@@ -10,6 +10,8 @@ return [
     'logo_alt' => 'شعار المنصة',
     'visual_alt' => 'معاينة لوحة التحكم',
 
+    'forgot_password' => 'نسيت كلمة المرور؟',
+
     'validation' => [
         'phone_required' => 'رقم الهاتف مطلوب.',
         'password_required' => 'كلمة المرور مطلوبة.',

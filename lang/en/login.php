@@ -10,6 +10,8 @@ return [
     'logo_alt' => 'Brand logo',
     'visual_alt' => 'Dashboard preview',
 
+    'forgot_password' => 'Forgot your password?',
+
     'validation' => [
         'phone_required' => 'Phone number is required.',
         'password_required' => 'Password is required.',
